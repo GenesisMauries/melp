@@ -1,14 +1,14 @@
 // Position of user
 const getPosition = (position) => {
-    let pos = {
+    let pose = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
     };
 
-    infoWindow.setPosition(pos);
-    infoWindow.setContent('Tú estas aquí');
+    infoWindow.setPosition(pose);
+    infoWindow.setContent('Estas aquí');
     infoWindow.open(map);
-    map.setCenter(pos);
+    map.setCenter(pose);
 };
 
 // Function error
@@ -39,5 +39,7 @@ initMap = () => {
     }
 }
 
-
+const printInfo = (places) => {
+    console.log(places)
+}
 
