@@ -1,3 +1,4 @@
+let placesInfo = [];
 // Position of user
 const getPosition = (position) => {
     let pose = {
@@ -12,34 +13,51 @@ const getPosition = (position) => {
 };
 
 // Function error
-const error = () => {
-    swal({
-        type: 'error',
-        text: `Habilita tu geolocalización para usar correctamente Melp`
-    });
-};
+// const error = () => {
+//     swal({
+//         type: 'error',
+//         text: `Habilita tu geolocalización para usar correctamente Melp`
+//     });
+// };
 
 // Initialize map
 initMap = () => {
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: 19.4045352, lng: -99.1662097 },
+    let map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 19.438419, lng: -99.128377},
         zoom: 15
     });
     infoWindow = new google.maps.InfoWindow;
 
-    // Geolocation.
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(getPosition, error);
-    } else {
-        // Browser is not compatible
-        swal({
-            type: 'error',
-            text: `Tu navegador no es compatible con la geolocalización`
-        });
-    }
-}
+    //Geolocation
+    // if (navigator.geolocation) {
+    //     navigator.geolocation.getCurrentPosition(getPosition, error);
+    // } else {
+    //     // Browser is not compatible
+    //     swal({
+    //         type: 'error',
+    //         text: `Tu navegador no es compatible con la geolocalización`
+    //     });
+    // }
+    
+    let markers = placesInfo.map(place =>{
+        return new google.maps.Marker({
+            position : place.position,
+            title: place.name,
+            map: map
+        })
+    })
+};
 
 const printInfo = (places) => {
-    console.log(places)
-}
-
+    places.forEach(place => {
+        let placeInfo = {
+            position: {
+                lat: place.address.location.lat,
+                lng: place.address.location.lng
+            },
+            name: place.name
+        }
+        console.log(place)
+        placesInfo.push(placeInfo);
+    });
+};
