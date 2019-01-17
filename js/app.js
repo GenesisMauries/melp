@@ -39,12 +39,7 @@ initMap = () => {
             text: `Tu navegador no es compatible con la geolocalización`
         });
     }
-    // const image = {
-    //     url: 'assets/pin.png',
-    //     size: new google.maps.Size(20, 32),
-    //     origin: new google.maps.Point(0, 0),
-    //     anchor: new google.maps.Point(0, 32)
-    // };
+  
     let markers = placesInfo.map(place =>{
         return new google.maps.Marker({
             position : place.position,
