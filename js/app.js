@@ -1,4 +1,5 @@
 let placesInfo = [];
+
 // Position of user
 const getPosition = (position) => {
     let pose = {
@@ -9,16 +10,16 @@ const getPosition = (position) => {
     infoWindow.setPosition(pose);
     infoWindow.setContent('Estas aquí');
     infoWindow.open(map);
-    map.setCenter(pose);
-};
+    // map.setCenter(pose);
+}
 
 // Function error
-// const error = () => {
-//     swal({
-//         type: 'error',
-//         text: `Habilita tu geolocalización para usar correctamente Melp`
-//     });
-// };
+const error = () => {
+    swal({
+        type: 'error',
+        text: `Habilita tu geolocalización para usar correctamente Melp`
+    });
+};
 
 // Initialize map
 initMap = () => {
@@ -29,23 +30,35 @@ initMap = () => {
     infoWindow = new google.maps.InfoWindow;
 
     //Geolocation
-    // if (navigator.geolocation) {
-    //     navigator.geolocation.getCurrentPosition(getPosition, error);
-    // } else {
-    //     // Browser is not compatible
-    //     swal({
-    //         type: 'error',
-    //         text: `Tu navegador no es compatible con la geolocalización`
-    //     });
-    // }
-    
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(getPosition, error);
+    } else {
+        // Browser is not compatible
+        swal({
+            type: 'error',
+            text: `Tu navegador no es compatible con la geolocalización`
+        });
+    }
+    // const image = {
+    //     url: 'assets/pin.png',
+    //     size: new google.maps.Size(20, 32),
+    //     origin: new google.maps.Point(0, 0),
+    //     anchor: new google.maps.Point(0, 32)
+    // };
     let markers = placesInfo.map(place =>{
         return new google.maps.Marker({
             position : place.position,
+            animation: google.maps.Animation.DROP,
             title: place.name,
             map: map
+            // icon: image
         })
-    })
+    });
+
+    // markers.addListener('click', function() {
+    //     map.setZoom(28);
+
+    // });
 };
 
 const printInfo = (places) => {

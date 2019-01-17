@@ -10,6 +10,7 @@ const call = () =>{
         
         //Send response to iteration
         printInfo(places);
+        
     })
 }
 call();
